@@ -25,8 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // Настраиваю сам spring security
     protected void configure(HttpSecurity http) throws Exception{
         //меняю страницу авторизации
-        http.csrf().disable() // отключаю защиту от межсайтовой подделки запросов ( НЕ РЕКОМЕНДУЕТСЯ!!!)
-                .authorizeRequests()
+        http.authorizeRequests()
                 .antMatchers("/auth/login","/auth/registration" ,"/error").permitAll() //страницы доступные всем
                 .anyRequest().authenticated()  // все другие страницы закрыты без авторизации
                 .and()// регистрация новой формы авторизации
