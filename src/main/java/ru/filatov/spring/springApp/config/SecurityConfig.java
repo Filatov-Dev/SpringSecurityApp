@@ -26,8 +26,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
         //меняю страницу авторизации
         http.authorizeRequests()
+                .antMatchers("/admin").hasRole("ADMIN")
                 .antMatchers("/auth/login","/auth/registration" ,"/error").permitAll() //страницы доступные всем
-                .anyRequest().authenticated()  // все другие страницы закрыты без авторизации
+                .anyRequest().hasAnyRole("USER", "ADMIN")
                 .and()// регистрация новой формы авторизации
                 .formLogin().loginPage("/auth/login")
                 .loginProcessingUrl("/process_login")
